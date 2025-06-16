@@ -28,7 +28,7 @@ public class Appointment {
     @JoinColumn(name = "doctor_id", nullable = false)
     private User doctor;
 
-    @Column(nullable = false)
+    @Column(name = "appointment_date", nullable = false)
     private LocalDateTime date;
 
     @Column(nullable = false)

@@ -17,10 +17,7 @@ import org.springframework.security.config.Customizer;
 
 @Configuration
 @EnableMethodSecurity
-@RequiredArgsConstructor
 public class SecurityConfig {
-    private final UserService userService;
-
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
@@ -45,8 +42,8 @@ public class SecurityConfig {
         return new BCryptPasswordEncoder();
     }
 
-   @Bean
-   public UserDetailsService userDetailsService() {
+    @Bean
+    public UserDetailsService userDetailsService(UserService userService) {
         return userService;
-   }
+    }
 }
