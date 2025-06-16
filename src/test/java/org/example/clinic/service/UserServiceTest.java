@@ -5,9 +5,13 @@ import org.example.clinic.model.User.Role;
 import org.example.clinic.repository.UserRepository;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -53,5 +57,33 @@ class UserServiceTest {
         // Assert
         assertThat(result).isPresent();
         assertThat(result.get().getUsername()).isEqualTo("test_user");
+    }
+
+    @Test
+    void shouldReturnAllUsers() {
+        // Arrange
+        User user1 = User.builder().username("user1").build();
+        User user2 = User.builder().username("user2").build();
+        List<User> users = Arrays.asList(user1, user2);
+        Mockito.when(userRepository.findAll()).thenReturn(users);
+
+        // Act
+        List<User> result = userService.getAllUsers();
+
+        // Assert
+        assertThat(result).hasSize(2).contains(user1, user2);
+    }
+
+    @Test
+    void shouldThrowExceptionWhenUserNotFound() {
+        // Arrange
+        Mockito.when(userRepository.findByUsername("notfound")).thenReturn(Optional.empty());
+
+        // Act & Assert
+        try {
+            userService.loadUserByUsername("notfound");
+        } catch (UsernameNotFoundException ex) {
+            assertThat(ex.getMessage()).contains("User not found with username: notfound");
+        }
     }
 }
