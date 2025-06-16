@@ -45,8 +45,8 @@ public class SecurityConfig {
         return new BCryptPasswordEncoder();
     }
 
-    @Bean
-    public UserDetailsService userDetailsService() {
-        return userService::loadUserByUsername;
-    }
+   @Bean
+   public UserDetailsService userDetailsService() {
+        return userService;
+   }
 }
