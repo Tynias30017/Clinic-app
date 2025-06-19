@@ -31,7 +31,7 @@ class AppointmentRepositoryTest {
                 User.builder()
                         .username("patient")
                         .password("password")
-                        .role(Role.USER)
+                        .role(Role.PATIENT)
                         .build()
         );
 
@@ -39,7 +39,7 @@ class AppointmentRepositoryTest {
                 User.builder()
                         .username("doctor")
                         .password("password")
-                        .role(Role.ADMIN)
+                        .role(Role.DOCTOR)
                         .build()
         );
 
