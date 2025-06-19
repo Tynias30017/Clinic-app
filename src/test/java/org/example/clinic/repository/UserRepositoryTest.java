@@ -24,7 +24,7 @@ class UserRepositoryTest {
         User user = User.builder()
                 .username("test_user")
                 .password("password")
-                .role(Role.USER)
+                .role(Role.PATIENT)
                 .build();
 
         // Act
@@ -34,6 +34,6 @@ class UserRepositoryTest {
         // Assert
         assertThat(result).isPresent();
         assertThat(result.get().getUsername()).isEqualTo("test_user");
-        assertThat(result.get().getRole()).isEqualTo(Role.USER);
+        assertThat(result.get().getRole()).isEqualTo(Role.PATIENT);
     }
 }

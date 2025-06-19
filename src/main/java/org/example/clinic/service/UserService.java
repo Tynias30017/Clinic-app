@@ -33,7 +33,7 @@ public class UserService implements UserDetailsService {
 
     public User register(User user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-        user.setRole(User.Role.USER);
+        user.setRole(User.Role.PATIENT);
         return userRepository.save(user);
     }
 

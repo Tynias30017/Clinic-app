@@ -39,9 +39,9 @@ class UserServiceTest {
         // Assert
         assertThat(result.getUsername()).isEqualTo("test_user");
         assertThat(passwordEncoder.matches("password", result.getPassword())).isTrue();
-        assertThat(result.getRole()).isEqualTo(Role.USER);
+        assertThat(result.getRole()).isEqualTo(Role.PATIENT);
         Mockito.verify(userRepository).save(Mockito.argThat(savedUser ->
-            savedUser.getRole() == Role.USER && passwordEncoder.matches("password", savedUser.getPassword())
+            savedUser.getRole() == Role.PATIENT && passwordEncoder.matches("password", savedUser.getPassword())
         ));
     }
 
