@@ -8,6 +8,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
+import io.swagger.v3.oas.annotations.Operation;
 
 import java.util.List;
 
@@ -18,11 +19,13 @@ public class UserController {
     private final UserService userService;
     private final AuthenticationManager authenticationManager;
 
+    @Operation(summary = "Rejestracja nowego użytkownika (domyślnie pacjent)")
     @PostMapping("/register")
     public User register(@RequestBody User user) {
         return userService.register(user);
     }
 
+    @Operation(summary = "Logowanie użytkownika")
     @PostMapping("/login")
     public String login(@RequestBody User user) {
         Authentication authentication = authenticationManager.authenticate(
@@ -32,6 +35,7 @@ public class UserController {
         return "Login successful: " + user.getUsername();
     }
 
+    @Operation(summary = "Pobierz wszystkich użytkowników")
     @GetMapping
     public List<User> getAllUsers() {
         return userService.getAllUsers();

@@ -1,5 +1,6 @@
 package org.example.clinic.controller;
 
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import org.example.clinic.model.Appointment;
 import org.example.clinic.model.User;
@@ -20,6 +21,7 @@ public class AdminController {
     private final AppointmentService appointmentService;
     private final UserService userService;
 
+    @Operation(summary = "Statystyki: liczba użytkowników, lekarzy, pacjentów, wizyt")
     @GetMapping("/stats")
     public Map<String, Object> getStats() {
         Map<String, Object> stats = new HashMap<>();
@@ -31,9 +33,9 @@ public class AdminController {
         return stats;
     }
 
+    @Operation(summary = "Historia wszystkich wizyt")
     @GetMapping("/appointments")
     public List<Appointment> getAllAppointments() {
         return appointmentService.findAll();
     }
 }
-
