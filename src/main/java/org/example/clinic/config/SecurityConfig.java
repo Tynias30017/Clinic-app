@@ -9,7 +9,6 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
@@ -21,14 +20,17 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-            .csrf(csrf -> csrf.disable()) // Wyłączenie CSRF
-            .authorizeHttpRequests(auth -> { // Konfiguracja reguł autoryzacji
-                auth.requestMatchers("/api/users/register", "/api/users/login").permitAll(); // Publiczne endpointy
-                auth.requestMatchers(HttpMethod.GET, "/api/appointments/**").hasAnyRole("USER", "ADMIN");
-                auth.requestMatchers(HttpMethod.POST, "/api/appointments/**").hasRole("ADMIN");
-                auth.anyRequest().authenticated(); // Wymagaj uwierzytelnienia dla reszty
-            })
-            .httpBasic(Customizer.withDefaults()); // Nowa poprawna składnia HTTP Basic
+                .csrf(csrf -> csrf.disable())
+                .authorizeHttpRequests(auth -> {
+                    auth.requestMatchers("/css/**", "/js/**", "/images/**", "/webjars/**").permitAll();
+                    auth.requestMatchers(HttpMethod.GET, "/api/appointments/**").hasAnyRole("USER", "ADMIN");
+                    auth.requestMatchers(HttpMethod.POST, "/api/appointments/**").hasRole("ADMIN");
+                    auth.anyRequest().authenticated();
+                })
+                .formLogin(form -> form
+                        .permitAll()
+                )
+                .logout(logout -> logout.permitAll());
         return http.build();
     }
 
@@ -40,10 +42,5 @@ public class SecurityConfig {
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
-    }
-
-    @Bean
-    public UserDetailsService userDetailsService(UserService userService) {
-        return userService;
     }
 }
