@@ -34,4 +34,16 @@ public class DoctorAvailabilityController {
     public List<DoctorAvailability> getAllAvailability() {
         return doctorAvailabilityService.getAllAvailability();
     }
+
+    @Operation(summary = "Aktualizuj dostępność lekarza")
+    @PutMapping("/{id}")
+    public DoctorAvailability updateAvailability(@PathVariable Long id, @RequestBody DoctorAvailability availability) {
+        return doctorAvailabilityService.updateAvailability(id, availability);
+    }
+
+    @Operation(summary = "Usuń dostępność lekarza po ID")
+    @DeleteMapping("/{id}")
+    public void deleteAvailability(@PathVariable Long id) {
+        doctorAvailabilityService.deleteAvailabilityById(id);
+    }
 }
