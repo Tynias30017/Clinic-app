@@ -30,4 +30,8 @@ public class AppointmentService {
     public List<Appointment> findAll() {
         return appointmentRepository.findAll();
     }
+
+    public void cancelById(Long id) {
+        appointmentRepository.deleteById(id);
+    }
 }

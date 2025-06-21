@@ -25,4 +25,10 @@ public class AppointmentController {
     public List<Appointment> findAll() {
         return appointmentService.findAll();
     }
+
+    @Operation(summary = "Odwołaj wizytę po ID")
+    @DeleteMapping("/{id}")
+    public void cancel(@PathVariable Long id) {
+        appointmentService.cancelById(id);
+    }
 }
