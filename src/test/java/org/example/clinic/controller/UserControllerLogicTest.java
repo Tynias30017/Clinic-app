@@ -47,7 +47,7 @@ class UserControllerLogicTest {
     @Test
     void shouldRegisterUser() throws Exception {
         User user = User.builder().username("test").password("pass").build();
-        when(userService.register(any(User.class))).thenReturn(user);
+        when(userService.register(any(org.example.clinic.dto.UserRegisterRequest.class))).thenReturn(user);
 
         mockMvc.perform(post("/api/users/register")
                 .contentType(MediaType.APPLICATION_JSON)

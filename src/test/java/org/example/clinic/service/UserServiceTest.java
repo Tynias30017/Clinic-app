@@ -1,5 +1,6 @@
 package org.example.clinic.service;
 
+import org.example.clinic.dto.UserRegisterRequest;
 import org.example.clinic.model.User;
 import org.example.clinic.model.User.Role;
 import org.example.clinic.repository.UserRepository;
@@ -26,15 +27,15 @@ class UserServiceTest {
     @Test
     void shouldRegisterUser() {
         // Arrange
-        User user = User.builder()
-                .username("test_user")
-                .password("password")
-                .build();
+        UserRegisterRequest request = new UserRegisterRequest();
+        request.setUsername("test_user");
+        request.setPassword("password");
+        // nie ustawiamy roli, domyślnie PATIENT
 
         Mockito.when(userRepository.save(any(User.class))).thenAnswer(invocation -> invocation.getArgument(0));
 
         // Act
-        User result = userService.register(user);
+        User result = userService.register(request);
 
         // Assert
         assertThat(result.getUsername()).isEqualTo("test_user");
