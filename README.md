@@ -1,8 +1,12 @@
 # Clinic App
 
+## Autor
+Grzegorz Niedojadło 151913 GK03
+
+## Opis
 System rejestracji wizyt pacjentów i zarządzania dostępnością lekarzy.
 
-## Wymagania projektowe
+## Funkce projektowe
 - Rejestracja i logowanie pacjentów oraz lekarzy
 - Pacjenci mogą umawiać wizyty
 - Lekarze mogą zarządzać dostępnością
@@ -20,19 +24,31 @@ System rejestracji wizyt pacjentów i zarządzania dostępnością lekarzy.
 2. Uruchom w Dockerze: `docker-compose up --build`
 3. Swagger UI: [http://localhost:8080/swagger-ui.html](http://localhost:8080/swagger-ui.html)
 
+## Struktura projektu
+
+- src/main/java – kod źródłowy aplikacji (kontrolery, serwisy, repozytoria, modele)
+- src/main/resources – pliki konfiguracyjne, migracje bazy danych, szablony, statyczne zasoby
+- src/test/java – testy jednostkowe i integracyjne
+- Dockerfile, docker-compose.yml – pliki do uruchamiania aplikacji w kontenerach
+- pom.xml – konfiguracja projektu Maven (zależności, pluginy)
+- README.md – dokumentacja projektu
+
 ## Struktura bazy danych (ERD)
 
-![ERD](doc/erd.png)
+![ERD](docs/erd.png)
 
 ## Przykładowe migracje (Flyway)
 Pliki migracji znajdują się w `src/main/resources/db/migration/`.
 
 ## Testy i pokrycie kodu
 - Testy jednostkowe: `./mvnw test`
-- Raport pokrycia: `target/site/jacoco/index.html`
+![Pokrycie testów](docs/Pokrycie_testow.png)
 
-## Screeny
-- (Wstaw screeny z działania aplikacji i panelu Swagger UI)
+## Screeny API i Swagger UI
 
-## Autor
-Grzegorz Niedojadło
+![Swagger 1](docs/swagger1.png)
+![Swagger 2](docs/swagger2.png)
+![Swagger 3](docs/swagger3.png)
+
+## Pokrycie testów
+
